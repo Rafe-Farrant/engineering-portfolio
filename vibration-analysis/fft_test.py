@@ -9,8 +9,21 @@ dt = t[1] - t[0]
 signal1 = np.sin(2 * np.pi * 5 * t)
 signal2 = np.sin(2 * np.pi * 20 * t)
 
-# Combine into one signal
-signal = signal1 + signal2
+# Combine signals
+clean_signal = signal1 + signal2
+
+# Add random noise
+noise = 0.5 * np.random.randn(len(t))
+signal = clean_signal + noise
+
+# Plot noisy signal
+plt.plot(t, signal)
+plt.title("Noisy Vibration Signal (Time Domain)")
+plt.xlabel("Time (s)")
+plt.ylabel("Amplitude")
+plt.grid()
+plt.savefig("vibration-analysis/noisy_signal.png")
+plt.clf()
 
 # Perform FFT
 fft_values = np.fft.fft(signal)
@@ -21,12 +34,12 @@ positive_mask = frequencies > 0
 frequencies = frequencies[positive_mask]
 fft_magnitude = np.abs(fft_values[positive_mask])
 
-# Find the two largest peaks
-peak_indices = np.argsort(fft_magnitude)[-2:]
-dominant_frequencies = frequencies[peak_indices]
+# Find peaks above threshold
+threshold = max(fft_magnitude) * 0.3
+peaks = frequencies[fft_magnitude > threshold]
 
-print("Dominant frequencies detected:")
-for freq in sorted(dominant_frequencies):
+print("Detected frequency components:")
+for freq in peaks[:5]:
     print(f"{freq:.2f} Hz")
 
 # Plot frequency spectrum

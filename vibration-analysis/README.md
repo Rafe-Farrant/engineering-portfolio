@@ -14,6 +14,17 @@ Learn how to simulate vibration signals in Python before analysing real accelero
 - Detected dominant frequencies at 5 Hz and 20 Hz
 - Plotted the frequency spectrum
 
+## Day 4 Progress
+Added random noise to the simulated vibration signal to better represent real sensor data.
+
+Used FFT to analyse the noisy signal in the frequency domain.
+
+Successfully detected the main frequency components near 5 Hz and 20 Hz despite the added noise.
+
+Generated:
+- noisy_signal.png
+- frequency_spectrum.png
+
 ## Tools Used
 Python
 NumPy
