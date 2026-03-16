@@ -71,6 +71,20 @@ This made the results easier to interpret and more suitable for engineering repo
 
 The frequency plot now shows labelled peaks corresponding to the shaft speed and fault harmonics.
 
+## Day 8 Progress
+
+Refactored the vibration analysis script into separate functions to improve readability and structure.
+
+The workflow is now divided into:
+- signal generation
+- CSV export
+- time-domain plotting
+- FFT analysis
+- peak detection
+- spectrum plotting
+
+This makes the project easier to maintain and closer to good engineering software practice.
+
 ## Tools Used
 Python
 NumPy
