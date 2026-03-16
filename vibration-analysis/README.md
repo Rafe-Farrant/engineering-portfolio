@@ -85,6 +85,14 @@ The workflow is now divided into:
 
 This makes the project easier to maintain and closer to good engineering software practice.
 
+## Day 9 Progress
+
+Updated the vibration analysis pipeline so it can operate in two modes:
+- simulated signal generation
+- loading signal data from an external CSV file
+
+This is an important step toward analysing real accelerometer data collected from hardware.
+
 ## Tools Used
 Python
 NumPy

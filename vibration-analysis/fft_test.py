@@ -24,6 +24,15 @@ def generate_signal():
     return t, dt, signal
 
 
+def load_signal_from_csv(filename):
+    """Load time and signal data from a CSV file."""
+    data = np.loadtxt(filename, delimiter=",", skiprows=1)
+    t = data[:, 0]
+    signal = data[:, 1]
+    dt = t[1] - t[0]
+    return t, dt, signal
+
+
 def save_signal_to_csv(t, signal, filename):
     """Save signal data to CSV."""
     data = np.column_stack((t, signal))
@@ -39,7 +48,7 @@ def save_signal_to_csv(t, signal, filename):
 def plot_time_signal(t, signal, filename):
     """Plot and save the time-domain signal."""
     plt.plot(t, signal)
-    plt.title("Simulated Machine Vibration Signal")
+    plt.title("Machine Vibration Signal")
     plt.xlabel("Time (s)")
     plt.ylabel("Amplitude")
     plt.grid()
@@ -90,9 +99,16 @@ def plot_frequency_spectrum(frequencies, fft_magnitude, peak_frequencies, peak_m
 
 def main():
     """Run the vibration analysis pipeline."""
-    t, dt, signal = generate_signal()
+    use_real_data = True
 
-    save_signal_to_csv(t, signal, "vibration-analysis/signal_data.csv")
+    if use_real_data:
+        t, dt, signal = load_signal_from_csv("vibration-analysis/real_sensor_data.csv")
+        print("Using real sensor data from CSV")
+    else:
+        t, dt, signal = generate_signal()
+        save_signal_to_csv(t, signal, "vibration-analysis/signal_data.csv")
+        print("Using simulated vibration data")
+
     plot_time_signal(t, signal, "vibration-analysis/noisy_signal.png")
 
     frequencies, fft_magnitude = perform_fft(signal, dt)
