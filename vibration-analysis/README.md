@@ -111,6 +111,3 @@ Issues:
 Python
 NumPy
 Matplotlib
-
-## Next Step
-Use FFT to detect the frequencies present in the signal.
