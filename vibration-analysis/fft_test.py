@@ -1,25 +1,41 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Generate time array
-t = np.linspace(0, 1, 1000)
+# Time array: 2 seconds, 2000 samples (better frequency resolution)
+t = np.linspace(0, 2, 2000)
 dt = t[1] - t[0]
 
-# Generate signal
-signal1 = np.sin(2 * np.pi * 5 * t)
-signal2 = np.sin(2 * np.pi * 20 * t)
-noise = 0.5 * np.random.randn(len(t))
+# Machine parameters
+shaft_speed = 12      # Hz (rotational speed)
+fault_freq = 48       # Hz (e.g. bearing fault frequency)
 
-signal = signal1 + signal2 + noise
+# Base vibration from rotating shaft
+shaft_signal = 0.8 * np.sin(2 * np.pi * shaft_speed * t)
 
-# Save to CSV
+# Fault vibration and harmonics
+fault_signal = (
+    1.2 * np.sin(2 * np.pi * fault_freq * t) +
+    0.6 * np.sin(2 * np.pi * 2 * fault_freq * t) +
+    0.3 * np.sin(2 * np.pi * 3 * fault_freq * t)
+)
+
+# Random noise
+noise = 0.4 * np.random.randn(len(t))
+
+# Combined vibration signal
+signal = shaft_signal + fault_signal + noise
+
 data = np.column_stack((t, signal))
-np.savetxt("vibration-analysis/signal_data.csv", data,
-           delimiter=",", header="time,signal", comments="")
+np.savetxt(
+    "vibration-analysis/signal_data.csv",
+    data,
+    delimiter=",",
+    header="time,signal",
+    comments=""
+)
 
-# Plot time signal
 plt.plot(t, signal)
-plt.title("Simulated Vibration Signal")
+plt.title("Simulated Machine Vibration Signal")
 plt.xlabel("Time (s)")
 plt.ylabel("Amplitude")
 plt.grid()
@@ -34,16 +50,17 @@ positive_mask = frequencies > 0
 frequencies = frequencies[positive_mask]
 fft_magnitude = np.abs(fft_values[positive_mask])
 
-threshold = max(fft_magnitude) * 0.3
+threshold = max(fft_magnitude) * 0.15
 peaks = frequencies[fft_magnitude > threshold]
 
-print("Detected frequency components:")
-for freq in peaks[:5]:
+print("Detected vibration frequencies:")
+for freq in peaks[:10]:
     print(f"{freq:.2f} Hz")
 
 plt.plot(frequencies, fft_magnitude)
-plt.title("Frequency Spectrum")
+plt.title("Machine Vibration Frequency Spectrum")
 plt.xlabel("Frequency (Hz)")
 plt.ylabel("Magnitude")
 plt.grid()
 plt.savefig("vibration-analysis/frequency_spectrum.png")
+print("Saved plot as vibration-analysis/frequency_spectrum.png")

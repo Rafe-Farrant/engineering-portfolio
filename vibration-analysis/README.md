@@ -46,6 +46,23 @@ Output files generated:
 - noisy_signal.png
 - frequency_spectrum.png
 
+## Day 6 Progress
+
+Simulated a rotating machine vibration signal with:
+- shaft rotation frequency at 12 Hz
+- fault frequency at 48 Hz
+- harmonic content
+- added random noise
+
+FFT analysis detected dominant frequencies at:
+- 11.99 Hz
+- 47.98 Hz
+- 95.95 Hz
+
+Also found that if threshold was lowered the 3rd Harmonic at 143.93 Hz could be detected
+
+These correspond closely to the expected shaft speed and fault harmonics.
+
 ## Tools Used
 Python
 NumPy
