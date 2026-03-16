@@ -25,6 +25,27 @@ Generated:
 - noisy_signal.png
 - frequency_spectrum.png
 
+## Day 5 Progress
+
+Implemented a full data pipeline for vibration analysis.
+
+Steps:
+- Generated simulated vibration signal (5 Hz + 20 Hz + noise)
+- Saved the signal to a CSV file
+- Loaded and analysed the signal using FFT
+- Generated frequency spectrum and time-domain plots
+
+Issues:
+- Sample was too small so gave Detected frequency components:
+50.00 Hz
+- Issue was resolved by increased signal duration and number of sample so the FFT had sufficient resolution to identify the correct frequency components.
+
+
+Output files generated:
+- signal_data.csv
+- noisy_signal.png
+- frequency_spectrum.png
+
 ## Tools Used
 Python
 NumPy
