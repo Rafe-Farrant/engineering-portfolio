@@ -93,6 +93,20 @@ Updated the vibration analysis pipeline so it can operate in two modes:
 
 This is an important step toward analysing real accelerometer data collected from hardware.
 
+## Day 10 Progress
+
+Set up STM32 development environment for the NUCLEO-G071RB.
+
+Successfully:
+- created and built STM32 firmware project
+- connected to the board using ST-LINK
+- flashed firmware to the target successfully
+
+This establishes the hardware development toolchain required for future sensor integration and UART data streaming.
+
+Issues:
+- STM32 software proved difficult and microcontroller had Mbed files on that kept running despite importing of new files
+
 ## Tools Used
 Python
 NumPy
