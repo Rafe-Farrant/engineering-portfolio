@@ -63,6 +63,14 @@ Also found that if threshold was lowered the 3rd Harmonic at 143.93 Hz could be 
 
 These correspond closely to the expected shaft speed and fault harmonics.
 
+## Day 7 Progress
+
+Improved the FFT output by automatically detecting and labelling the dominant peaks on the frequency spectrum.
+
+This made the results easier to interpret and more suitable for engineering reporting.
+
+The frequency plot now shows labelled peaks corresponding to the shaft speed and fault harmonics.
+
 ## Tools Used
 Python
 NumPy
