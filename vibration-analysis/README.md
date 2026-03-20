@@ -107,6 +107,29 @@ This establishes the hardware development toolchain required for future sensor i
 Issues:
 - STM32 software proved difficult and microcontroller had Mbed files on that kept running despite importing of new files
 
+## Day 11 — Python UART Receiver + FFT Pipeline
+Built the Python receiver script that will accept accelerometer data streamed from the STM32 over UART.
+The script has two modes:
+
+Simulated mode — generates a synthetic vibration signal (12 Hz shaft, 48 Hz fault, harmonics) to test the pipeline without hardware
+UART mode — reads real CSV data from the STM32 serial port once the hardware is connected
+
+Ran the script in Codespaces in simulated mode and generated time domain and FFT plots with automatically labelled frequency peaks — reusing the analysis pipeline built in Days 6-8.
+Also had to adapt the script for Codespaces since it can't display live Matplotlib windows, so outputs are saved as PNG files instead.
+The Python side of the pipeline is now complete. When the STM32 firmware streams data tomorrow, this script just works — no changes needed
+
+
+## Day 12 — STM32 Firmware: MPU-6050 I2C + UART Stream
+Attempted to use STM32CubeIDE but ran into environment issues, so made the decision to switch to Keil Studio with Mbed — a browser-based IDE that's faster to set up and better suited to rapid prototyping.
+Written and built firmware for the NUCLEO-G071RB that:
+
+Initialises the MPU-6050 over I2C at 400kHz
+Reads raw accelerometer data from all three axes at 125Hz
+Converts raw values to g-force
+Streams data as CSV over UART at 115200 baud, ready for the Python pipeline
+
+Hardware arrives tomorrow — Day 13 will be wiring it up, flashing the firmware and testing the full end-to-end pipeline with the Python receiver built on Day 11.
+
 ## Tools Used
 Python
 NumPy
